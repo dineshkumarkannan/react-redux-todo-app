@@ -1,8 +1,16 @@
 import { useDispatch } from "react-redux";
-import { delete_todo, toggle_todo } from "../redux/feature/todoSlice";
+import { deleteTodoAsync, toggleTodoAsync } from "../redux/feature/toDoSlice";
 
 const ToDoItem = ({ todo }: any) => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
+
+  const handleToggleClick = () => {
+    dispatch(toggleTodoAsync({ id: todo.id, completed: !todo.completed }));
+  };
+
+  const handleDeleteClick = () => {
+    dispatch(deleteTodoAsync({ id: todo.id }));
+  };
 
   return (
     <section
@@ -17,16 +25,13 @@ const ToDoItem = ({ todo }: any) => {
           checked={todo.completed}
           tabIndex={0}
           id="todoCheckbox"
-          onChange={() => dispatch(toggle_todo({ id: todo.id }))}
+          onChange={() => handleToggleClick()}
         />
         <span tabIndex={0} aria-label={todo.title}>
           {todo.title}
         </span>
       </div>
-      <button
-        className="btn delete-btn"
-        onClick={() => dispatch(delete_todo({ id: todo.id }))}
-      >
+      <button className="btn delete-btn" onClick={() => handleDeleteClick()}>
         Delete
       </button>
     </section>

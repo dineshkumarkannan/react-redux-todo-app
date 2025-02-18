@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { add_todo } from "../redux/feature/todoSlice";
+import { addToDoAsync } from "../redux/feature/toDoSlice";
 
 const ToDoInputForm = () => {
   const [val, setVal] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   useEffect(() => {
     inputRef?.current?.focus();
   }, []);
@@ -13,7 +13,7 @@ const ToDoInputForm = () => {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (val) {
-      dispatch(add_todo({ title: val }));
+      dispatch(addToDoAsync({ title: val }));
       setVal("");
     } else {
     }
